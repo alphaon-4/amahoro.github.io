@@ -1,0 +1,33 @@
+.about-section {
+  padding: 6rem 0;
+  background-color: #ffffff; // White background for this section
+
+  .about-item {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%; // Ensure all cards have same height
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .about-icon {
+      font-size: 3rem;
+      color: #28a745; // Green color for icons
+      margin-bottom: 1rem;
+    }
+
+    h4 {
+      font-weight: bold;
+      margin-bottom: 0.75rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: #6c757d;
+    }
+  }
+}

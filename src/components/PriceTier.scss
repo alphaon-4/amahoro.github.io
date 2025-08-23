@@ -1,0 +1,37 @@
+.price-tier-card {
+  border: 1px solid #dee2e6;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+
+  .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+
+  .card-title {
+    font-size: 2.5rem;
+  }
+
+  .list-group-item {
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  &.featured {
+    border-color: #28a745; // Green border for featured
+    box-shadow: 0 0.5rem 1rem rgba(0, 123, 255, 0.15);
+    transform: scale(1.02);
+
+    .card-header {
+      background-color: #28a745;
+      color: white;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  }
+}
