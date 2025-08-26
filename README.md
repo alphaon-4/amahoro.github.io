@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Amahoro Tech Solutions Website
 
 This is a prototype website for Amahoro Tech Solutions, a web development agency. It showcases various sections including a homepage, services, portfolio, "why choose us" section, contact form, blog, and a website cost calculator.
@@ -51,3 +52,7 @@ npm run build
 ```
 
 The optimized build files will be generated in the `dist` directory.
+=======
+# amahoro.github.io
+Single web application
+>>>>>>> aea51d473b2e59ffe832a126b2ea594733923557
