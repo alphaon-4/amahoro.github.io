@@ -1,31 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col, Form, Card } from 'react-bootstrap';
+import { useSubscription } from '../context/SubscriptionContext';
 import './CostCalculator.scss';
 
-const features = [
-  { id: 'basic', name: 'Basic Website (Up to 5 pages)', price: 1000 },
-  { id: 'ecommerce', name: 'E-commerce Functionality', price: 1500 },
-  { id: 'blog', name: 'Integrated Blog', price: 300 },
-  { id: 'booking', name: 'Online Booking System', price: 700 },
-  { id: 'customDesign', name: 'Custom Design & Branding', price: 800 },
-  { id: 'seo', name: 'Advanced SEO Package', price: 500 },
-  { id: 'maintenance', name: '1 Year Maintenance & Support', price: 400 },
-  { id: 'socialMedia', name: 'Social Media Integration', price: 150 },
-];
-
-const CostCalculator = ({ setTotalCost }) => {
-  const [selectedFeatures, setSelectedFeatures] = useState([]);
-  const [total, setTotal] = useState(0);
-  const [isSubscription, setIsSubscription] = useState(false);
+const CostCalculator = ({ totalCost, setTotalCost, selectedFeatures, setSelectedFeatures, features, fee, setFee }) => {
+  const { selectedSubscription } = useSubscription();
 
   useEffect(() => {
-    const calculatedCost = selectedFeatures.reduce((sum, featureId) => {
+    const featuresCost = selectedFeatures.reduce((sum, featureId) => {
       const feature = features.find(f => f.id === featureId);
       return sum + (feature ? feature.price : 0);
     }, 0);
-    setTotal(calculatedCost);
-    setTotalCost(calculatedCost);
-  }, [selectedFeatures, setTotalCost]);
+
+    let calculatedFee = 0;
+    if (featuresCost >= 200 && featuresCost <= 500) {
+      calculatedFee = 24;
+    } else if (featuresCost >= 600 && featuresCost <= 1000) {
+      calculatedFee = 50;
+    } else if (featuresCost > 1000 && featuresCost <= 2000) {
+      calculatedFee = 70;
+    } else if (featuresCost > 2000) {
+      calculatedFee = 90;
+    }
+    setFee(calculatedFee);
+
+    const basePrice = selectedSubscription?.price || 0;
+    const maintenanceFee = selectedSubscription?.maintenanceFee || 0;
+    const finalCost = selectedSubscription ? basePrice + featuresCost + maintenanceFee : featuresCost + calculatedFee;
+    setTotalCost(finalCost);
+  }, [selectedFeatures, selectedSubscription, setTotalCost, features, setFee]);
 
   const handleFeatureChange = (e) => {
     const { id, checked } = e.target;
@@ -36,13 +39,10 @@ const CostCalculator = ({ setTotalCost }) => {
     }
   };
 
-  const handleSubscriptionChange = (e) => {
-    setIsSubscription(e.target.checked);
-  };
-
-  const getSubscriptionPrice = (total) => {
-    return (total / 12).toFixed(2);
-  };
+  const featuresCost = selectedFeatures.reduce((sum, featureId) => {
+    const feature = features.find(f => f.id === featureId);
+    return sum + (feature ? feature.price : 0);
+  }, 0);
 
   return (
     <section id="cost-calculator" className="cost-calculator-section">
@@ -64,24 +64,35 @@ const CostCalculator = ({ setTotalCost }) => {
                           id={feature.id}
                           label={`${feature.name} (${feature.price})`}
                           onChange={handleFeatureChange}
+                          checked={selectedFeatures.includes(feature.id)}
                           className="mb-2"
                         />
                       </Col>
                     ))}
                   </Row>
-                  <hr className="my-4" />
-                  <Form.Check
-                    type="checkbox"
-                    id="subscription-checkbox"
-                    label="Pay with subscription (spread the cost over 12 months)"
-                    onChange={handleSubscriptionChange}
-                    className="mb-3"
-                  />
+                  {selectedSubscription && (
+                    <>
+                      <hr className="my-4" />
+                      <p className="text-muted maintenance-fee-text">Includes a ${selectedSubscription.maintenanceFee}/month fee for domain renewal, software updates, server maintenance, and support.</p>
+                    </>
+                  )}
                 </Form>
                 <hr className="my-4" />
                 <div className="text-center">
-                  <h3>Estimated Cost: <span className="text-success display-6 fw-bold">${isSubscription ? `${getSubscriptionPrice(total)}/mo` : total}</span></h3>
-                  <p className="text-muted">This is an estimate. For a precise quote, please use our contact form.</p>
+                  <h3>Estimated Cost: <span className="text-success display-6 fw-bold">${featuresCost}</span></h3>
+                  {!selectedSubscription && fee > 0 && (
+                    <>
+                      <h4 className="mt-3">Fee: <span className="text-primary">${fee}</span></h4>
+                      <h3 className="mt-3">Total Cost: <span className="text-success display-6 fw-bold">${totalCost}</span></h3>
+                    </>
+                  )}
+                  {selectedSubscription && (
+                    <>
+                      <h4 className="mt-3">Monthly Fee: <span className="text-primary">${selectedSubscription.maintenanceFee}/month</span></h4>
+                      <h3 className="mt-3">Total Cost: <span className="text-success display-6 fw-bold">${totalCost}</span></h3>
+                    </>
+                  )}
+                  <p className="text-muted mt-3">This is an estimate. For a precise quote, please use our contact form.</p>
                 </div>
               </Card.Body>
             </Card>

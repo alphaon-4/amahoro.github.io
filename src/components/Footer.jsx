@@ -9,7 +9,7 @@ const Footer = () => {
       <Container>
         <Row>
           <Col md={6} className="text-center text-md-start mb-3 mb-md-0">
-            <p>&copy; {currentYear} Websprout. All Rights Reserved.</p>
+            <p>&copy; {currentYear} Amahoro Tech Solutions. All Rights Reserved.</p>
           </Col>
           <Col md={6} className="text-center text-md-end">
             <Nav className="justify-content-center justify-content-md-end">

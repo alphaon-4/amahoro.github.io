@@ -3,9 +3,12 @@ import { createRoot } from 'react-dom/client'
 
 import './index.scss'
 import App from './App.jsx'
+import { SubscriptionProvider } from './context/SubscriptionContext';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <SubscriptionProvider>
+      <App />
+    </SubscriptionProvider>
   </StrictMode>,
 )

@@ -1,9 +1,9 @@
 .about-section {
   padding: 6rem 0;
-  background-color: #ffffff; // White background for this section
+  background-color: var(--background-color-about);
 
   .about-item {
-    background-color: #f8f9fa;
+    background-color: var(--secondary-background-dark);
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -16,7 +16,7 @@
 
     .about-icon {
       font-size: 3rem;
-      color: #28a745; // Green color for icons
+      color: var(--primary-color-dark); // Green color for icons
       margin-bottom: 1rem;
     }
 
@@ -27,7 +27,21 @@
 
     p {
       font-size: 0.95rem;
-      color: #6c757d;
+      color: var(--text-color-dark);
+    }
+  }
+}
+
+body[data-theme="light"] .about-section {
+  .about-item {
+    background-color: var(--secondary-background-light);
+
+    .about-icon {
+      color: var(--primary-color-light);
+    }
+
+    p {
+      color: var(--text-color-light);
     }
   }
 }

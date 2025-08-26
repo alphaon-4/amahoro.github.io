@@ -9,9 +9,7 @@ const PortfolioItem = ({ image, title, description, link }) => {
       <Card.Body className="d-flex flex-column">
         <Card.Title>{title}</Card.Title>
         <Card.Text className="flex-grow-1">{description}</Card.Text>
-        <Button variant="outline-primary" href={link} target="_blank" rel="noopener noreferrer" className="mt-auto">
-          View Project
-        </Button>
+        {/* Removed View Project Button */}
       </Card.Body>
     </Card>
   );

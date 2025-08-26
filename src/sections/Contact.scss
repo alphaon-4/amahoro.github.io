@@ -1,11 +1,35 @@
 .contact-section {
   padding: 6rem 0;
-  background-color: #f8f9fa; // Light background for this section
+  background-color: var(--background-color-contact);
 
   .contact-form, .contact-info {
-    background-color: #ffffff;
+    background-color: var(--secondary-background-dark);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+
+    .form-label {
+      color: var(--text-color-dark);
+    }
+
+    .form-control {
+      background-color: var(--background-color-dark);
+      color: var(--text-color-dark);
+      border-color: var(--border-color-dark);
+
+      &:focus {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+        border-color: var(--primary-color-dark);
+        box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-dark-rgb), .25);
+      }
+    }
+
+    select.form-control {
+      option {
+        background-color: var(--background-color-dark);
+        color: var(--text-color-dark);
+      }
+    }
   }
 
   .contact-info {
@@ -20,9 +44,52 @@
         align-items: center;
         font-size: 1.1rem;
         a {
-          color: #343a40;
+          color: var(--text-color-dark);
           &:hover {
-            color: #28a745;
+            color: var(--primary-color-dark);
+          }
+        }
+      }
+    }
+  }
+}
+
+body[data-theme="light"] .contact-section {
+  .contact-form, .contact-info {
+    background-color: var(--secondary-background-light);
+
+    .form-label {
+      color: var(--text-color-light);
+    }
+
+    .form-control {
+      background-color: var(--background-color-light);
+      color: var(--text-color-light);
+      border-color: var(--border-color-light);
+
+      &:focus {
+        background-color: var(--background-color-light);
+        color: var(--text-color-light);
+        border-color: var(--primary-color-light);
+        box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-light-rgb), .25);
+      }
+    }
+
+    select.form-control {
+      option {
+        background-color: var(--background-color-light);
+        color: var(--text-color-light);
+      }
+    }
+  }
+
+  .contact-info {
+    ul {
+      li {
+        a {
+          color: var(--text-color-light);
+          &:hover {
+            color: var(--primary-color-light);
           }
         }
       }

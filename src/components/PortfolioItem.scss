@@ -27,6 +27,12 @@
 
   .card-text {
     font-size: 0.9rem;
-    color: #6c757d;
+    color: var(--text-color-dark);
+  }
+}
+
+body[data-theme="light"] .portfolio-item {
+  .card-text {
+    color: var(--text-color-light);
   }
 }

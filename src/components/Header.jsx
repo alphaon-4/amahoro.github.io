@@ -6,8 +6,8 @@ const Header = () => {
     <Navbar bg="light" expand="lg" sticky="top" className="shadow-sm">
       <Container>
         <Navbar.Brand href="#home" className="d-flex align-items-center">
-          <i className="fas fa-feather-alt me-2" style={{ color: 'green' }}></i>
-          <span style={{ fontWeight: 'bold' }}>Websprout</span>
+          <img src="/amahoro-logo.svg" alt="Amahoro Tech Solutions Logo" style={{ height: '30px', marginRight: '8px' }} />
+          <span style={{ fontWeight: 'bold' }}>Amahoro Tech Solutions</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -18,7 +18,9 @@ const Header = () => {
             <Nav.Link href="#about">Why Us?</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
-          <Button variant="outline-success" className="ms-lg-3">Get Started</Button>
+          <Button variant="outline-success" className="ms-lg-3" onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}>
+            Get Started
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

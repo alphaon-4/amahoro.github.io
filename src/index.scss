@@ -1,7 +1,65 @@
-
-
-// Custom global styles will go here.
 body {
   font-family: 'Poppins', sans-serif; // A modern, clean font
+  background-color: #f8f9fa; /* Default light background */
+  color: #212529; /* Default dark text color */
+}
+
+/* Update existing styles to use default colors */
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.text-white {
+  color: #f8f9fa !important;
+}
+
+.text-dark {
+  color: #212529 !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+}
+
+.contact-form, .contact-info {
+  background-color: #ffffff;
+}
+
+.about-item {
   background-color: #f8f9fa;
+}
+
+.portfolio-item {
+  background-color: #ffffff;
+}
+
+.testimonial-card {
+  background-color: #ffffff;
+}
+
+.price-tier {
+  background-color: #ffffff;
+}
+
+.service-card {
+  background-color: #ffffff;
+}
+
+.hero-section {
+  background-color: #e0f7fa;
+}
+
+.hero-visual-placeholder {
+  background-color: #e9ecef;
+  color: #adb5bd;
+  border-color: #ced4da;
+}
+
+.navbar-dark-theme,
+.navbar-light-theme {
+  background-color: #f8f9fa !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
 }

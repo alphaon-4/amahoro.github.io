@@ -1,5 +1,5 @@
 .testimonial-card {
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color-dark);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   padding: 2rem;
@@ -12,21 +12,43 @@
 
   .quote-icon {
     font-size: 2.5rem;
-    color: #28a745; // Green color for the quote icon
+    color: var(--primary-color-dark); // Green color for the quote icon
   }
 
   .card-text {
     font-style: italic;
     font-size: 1.1rem;
     line-height: 1.6;
+    color: var(--text-color-dark);
   }
 
   h5 {
     font-weight: bold;
-    color: #343a40;
+    color: var(--text-color-dark);
   }
 
   p {
     font-size: 0.9rem;
+    color: var(--text-color-dark);
+  }
+}
+
+body[data-theme="light"] .testimonial-card {
+  border-color: var(--border-color-light);
+
+  .quote-icon {
+    color: var(--primary-color-light);
+  }
+
+  .card-text {
+    color: var(--text-color-light);
+  }
+
+  h5 {
+    color: var(--text-color-light);
+  }
+
+  p {
+    color: var(--text-color-light);
   }
 }

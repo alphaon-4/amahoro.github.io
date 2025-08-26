@@ -13,9 +13,16 @@
     display: inline-block;
     padding: 20px;
     border-radius: 50%;
-    background-color: #e8f5e9; // A light green, fitting the "sprout" theme
-    color: #2e7d32; // A darker green
+    background-color: var(--icon-wrapper-background-dark); // A light green, fitting the "sprout" theme
+    color: var(--icon-wrapper-color-dark); // A darker green
     font-size: 2.5rem;
     line-height: 1;
+  }
+}
+
+body[data-theme="light"] .service-card {
+  .icon-wrapper {
+    background-color: var(--icon-wrapper-background-light);
+    color: var(--icon-wrapper-color-light);
   }
 }

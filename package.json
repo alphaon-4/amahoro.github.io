@@ -1,5 +1,5 @@
 {
-  "name": "websprout",
+  "name": "amahoro-tech-solutions",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "@lottiefiles/relottie-cli": "^1.13.0",
+    "emailjs-com": "^3.2.0",
     "lottie-react": "^2.4.1",
     "react": "^19.1.1",
     "react-bootstrap": "^2.10.10",
-    "react-dom": "^19.1.1"
+    "react-dom": "^19.1.1",
+    "react-helmet-async": "^2.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

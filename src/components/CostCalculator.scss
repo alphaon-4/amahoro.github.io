@@ -1,18 +1,44 @@
 .cost-calculator-section {
   padding: 6rem 0;
-  background-color: #e0f7fa; // Light blue background to make it stand out
+  background-color: var(--background-color-calculator);
 
   .card {
     border: none;
     border-radius: 15px;
+    background-color: var(--secondary-background-dark);
   }
 
   .form-check-label {
     font-size: 1.1rem;
     cursor: pointer;
+    color: var(--text-color-dark);
+  }
+
+  .maintenance-fee-text {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--text-color-dark-secondary);
   }
 
   .text-success {
-    color: #28a745 !important; // Ensure green color
+    color: var(--primary-color-dark) !important; // Ensure green color
+  }
+}
+
+body[data-theme="light"] .cost-calculator-section {
+  .card {
+    background-color: var(--secondary-background-light);
+  }
+
+  .form-check-label {
+    color: var(--text-color-light);
+  }
+
+  .maintenance-fee-text {
+    color: var(--text-color-light-secondary);
+  }
+
+  .text-success {
+    color: var(--primary-color-light) !important;
   }
 }

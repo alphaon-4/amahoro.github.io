@@ -1,6 +1,6 @@
-# Websprout Website
+# Amahoro Tech Solutions Website
 
-This is a prototype website for Websprout, a web development agency. It showcases various sections including a homepage, services, portfolio, "why choose us" section, contact form, blog, and a website cost calculator.
+This is a prototype website for Amahoro Tech Solutions, a web development agency. It showcases various sections including a homepage, services, portfolio, "why choose us" section, contact form, blog, and a website cost calculator.
 
 ## Technologies Used
 
@@ -24,7 +24,7 @@ Make sure you have Node.js and npm (Node Package Manager) installed on your mach
 
 1.  **Navigate to the project directory:**
     ```bash
-    cd websprout
+    cd amahoro-tech-solutions
     ```
 
 2.  **Install dependencies:**

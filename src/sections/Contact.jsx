@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Modal, Spinner } from 'react-bootstrap';
 import Lottie from 'lottie-react';
 import successAnimation from '../assets/success-animation.json'; // I will add this file later
 import './Contact.scss';
+import { useSubscription } from '../context/SubscriptionContext';
+import emailjs from 'emailjs-com';
 
-const Contact = ({ totalCost }) => {
+const Contact = ({ totalCost, selectedFeatures, features, fee }) => {
+  const { selectedSubscription, clearSubscription } = useSubscription();
+
   const [formData, setFormData] = useState({
     name: '',
     organization: '',
     siteType: '',
-    budget: '',
     style: '',
     message: '',
     email: '',
@@ -18,6 +21,16 @@ const Contact = ({ totalCost }) => {
   const [showSummary, setShowSummary] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  useEffect(() => {
+    if (selectedSubscription) {
+      setFormData(prevData => ({
+        ...prevData,
+        siteType: selectedSubscription.title,
+        // budget: `${selectedSubscription.price} - ${selectedSubscription.billingCycle === 'monthly' ? 'mo' : 'yr'}`, // Removed budget
+      }));
+    }
+  }, [selectedSubscription]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -32,38 +45,100 @@ const Contact = ({ totalCost }) => {
     setIsSubmitting(true);
     setShowSummary(false);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setShowSuccess(true);
-      setFormData({
-        name: '',
-        organization: '',
-        siteType: '',
-        budget: '',
-        style: '',
-        message: '',
-        email: '',
-        phone: ''
+    const serviceId = 'service_hgpvfix'; // Your EmailJS Service ID
+    const templateId = 'template_juyewmj'; // Your EmailJS Template ID
+    const publicKey = 'tnyyTCnnB8bhNeKVK'; // Your EmailJS Public Key
+
+    const htmlMessage = `
+      ${selectedSubscription ? `
+        <p><strong>Selected Plan:</strong> ${selectedSubscription.title}</p>
+        <p><strong>Price:</strong> ${selectedSubscription.price}</p>
+        <p><strong>Payment Plan:</strong> ${selectedSubscription.billingCycle === 'monthly' ? 'Monthly' : 'Yearly'}</p>
+        <p><strong>Maintenance Fee:</strong> ${selectedSubscription.maintenanceFee}/month</p>
+      ` : ''}
+      ${selectedFeatures.length > 0 ? `
+        <hr />
+        <p><strong>Selected Features:</strong></p>
+        <ul>
+          ${selectedFeatures.map(featureId => {
+            const feature = features.find(f => f.id === featureId);
+            return feature ? `<li>${feature.name}</li>` : '';
+          }).join('')}
+        </ul>
+      ` : ''}
+      <hr />
+      <p><strong>Name:</strong> ${formData.name}</p>
+      <p><strong>Organization:</strong> ${formData.organization}</p>
+      <p><strong>Email:</strong> ${formData.email}</p>
+      <p><strong>Phone:</strong> ${formData.phone}</p>
+      <p><strong>Site Type:</strong> ${formData.siteType}</p>
+      <p><strong>Style:</strong> ${formData.style}</p>
+      <p><strong>Message:</strong> ${formData.message}</p>
+      <hr />
+      <p><strong>Estimated Cost:</strong> ${totalCost - (selectedSubscription ? selectedSubscription.maintenanceFee : 0) - (fee > 0 && !selectedSubscription ? fee : 0)}</p>
+      ${!selectedSubscription && fee > 0 ? `
+        <p><strong>Fee:</strong> ${fee}</p>
+      ` : ''}
+      ${selectedSubscription ? `
+        <p><strong>Maintenance Fee:</strong> ${selectedSubscription.maintenanceFee}/month</p>
+        <p class="text-muted small">Includes domain renewal, software updates, server maintenance, and support.</p>
+      ` : ''}
+      <p><strong>Total Cost:</strong> ${totalCost}</p>
+    `;
+
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      to_email: 'zeroma@amahorotechsolution.work.gd', // Recipient email
+      html_message: htmlMessage, // Pass the HTML message
+    };
+
+    emailjs.send(serviceId, templateId, templateParams, publicKey)
+      .then((response) => {
+        console.log('Email successfully sent!', response.status, response.text);
+        setIsSubmitting(false);
+        setShowSuccess(true);
+        setFormData({
+          name: '',
+          organization: '',
+          siteType: '',
+          budget: '',
+          style: '',
+          message: '',
+          email: '',
+          phone: ''
+        });
+        clearSubscription();
+      })
+      .catch((err) => {
+        console.error('Failed to send email. Error: ', err);
+        setIsSubmitting(false);
+        // Optionally show an error message to the user
+        alert('Failed to send your request. Please try again later.');
       });
-    }, 2000);
   };
 
   const handleCloseSuccess = () => {
     setShowSuccess(false);
+    clearSubscription(); // Clear selected subscription when success modal is closed
   };
+
+  const featuresCost = selectedFeatures.reduce((sum, featureId) => {
+    const feature = features.find(f => f.id === featureId);
+    return sum + (feature ? feature.price : 0);
+  }, 0);
 
   return (
     <section id="contact" className="contact-section">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="display-5 fw-bold">Get Your Project Started</h2>
-          <p className="lead text-muted">Fill out the form below or reach out to us directly.</p>
+          <h2 className="display-5 fw-bold">Get Your Project Started in Rwanda</h2>
+          <p className="lead text-muted">Fill out the form below to request a website or software solution, or reach out to our team in Rwanda directly.</p>
         </div>
         <Row>
           <Col lg={7} className="mb-4 mb-lg-0">
             <Form onSubmit={handleSubmit} className="contact-form p-4 shadow-sm rounded">
-              <h4 className="mb-4">Request a Website</h4>
+              <h4 className="mb-4">Request a Website or Software Solution</h4>
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formName">
                   <Form.Label>Name</Form.Label>
@@ -88,7 +163,7 @@ const Contact = ({ totalCost }) => {
 
               <Row className="mb-3">
                 <Form.Group as={Col} controlId="formSiteType">
-                  <Form.Label>Type of Site</Form.Label>
+                  <Form.Label>Type of Solution</Form.Label>
                   <Form.Control as="select" name="siteType" value={formData.siteType} onChange={handleChange} required>
                     <option value="">Choose...</option>
                     <option>Business Website</option>
@@ -96,19 +171,12 @@ const Contact = ({ totalCost }) => {
                     <option>Landing Page</option>
                     <option>Portfolio</option>
                     <option>Blog</option>
+                    <option>Custom Software Development</option>
+                    <option>Mobile App Development</option>
                     <option>Other</option>
                   </Form.Control>
                 </Form.Group>
-                <Form.Group as={Col} controlId="formBudget">
-                  <Form.Label>Budget Range</Form.Label>
-                  <Form.Control as="select" name="budget" value={formData.budget} onChange={handleChange} required>
-                    <option value="">Choose...</option>
-                    <option>$500 - $1,500</option>
-                    <option>$1,500 - $3,000</option>
-                    <option>$3,000 - $5,000</option>
-                    <option>$5,000+</option>
-                  </Form.Control>
-                </Form.Group>
+                
               </Row>
 
               <Form.Group controlId="formStyle" className="mb-3">
@@ -135,19 +203,19 @@ const Contact = ({ totalCost }) => {
           </Col>
           <Col lg={5}>
             <div className="contact-info p-4 shadow-sm rounded h-100 d-flex flex-column justify-content-center">
-              <h4 className="mb-4">Contact Information</h4>
+              <h4 className="mb-4">Contact Information (Rwanda)</h4>
               <ul className="list-unstyled">
                 <li className="mb-3">
                   <i className="fas fa-envelope me-2 text-success"></i>
-                  <a href="mailto:info@websprout.com" className="text-decoration-none text-dark">info@websprout.com</a>
+                  <a href="mailto:zeroma@amahorotechsolution.work.gd" className="text-decoration-none text-dark">zeroma@amahorotechsolutions.work.gd</a>
                 </li>
                 <li className="mb-3">
                   <i className="fas fa-phone me-2 text-success"></i>
-                  <a href="tel:+1234567890" className="text-decoration-none text-dark">+1 (234) 567-890</a>
+                  <a href="tel:+250791453579" className="text-decoration-none text-dark">+250791453579</a>
                 </li>
                 <li className="mb-3">
                   <i className="fas fa-map-marker-alt me-2 text-success"></i>
-                  123 Web Street, Suite 456, Digital City, DC 12345
+                  KG 543 St, Kigali, Rwanda
                 </li>
               </ul>
               <div className="mt-4">
@@ -163,16 +231,52 @@ const Contact = ({ totalCost }) => {
             <Modal.Title>Review Your Request</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            {selectedSubscription && (
+              <>
+                <p><strong>Selected Plan:</strong> {selectedSubscription.title}</p>
+                <p><strong>Price:</strong> ${selectedSubscription.price}</p>
+                <p><strong>Payment Plan:</strong> {selectedSubscription.billingCycle === 'monthly' ? 'Monthly' : 'Yearly'}</p>
+                <p><strong>Maintenance Fee:</strong> ${selectedSubscription.maintenanceFee}/month</p>
+              </>
+            )}
+            {selectedFeatures.length > 0 && (
+              <>
+                <hr />
+                <p><strong>Selected Features:</strong></p>
+                <ul>
+                  {selectedFeatures.map(featureId => {
+                    const feature = features.find(f => f.id === featureId);
+                    return <li key={featureId}>{feature.name}</li>;
+                  })}
+                </ul>
+              </>
+            )}
+            <hr />
             <p><strong>Name:</strong> {formData.name}</p>
             <p><strong>Organization:</strong> {formData.organization}</p>
             <p><strong>Email:</strong> {formData.email}</p>
             <p><strong>Phone:</strong> {formData.phone}</p>
             <p><strong>Site Type:</strong> {formData.siteType}</p>
-            <p><strong>Budget:</strong> {formData.budget}</p>
+            
             <p><strong>Style:</strong> {formData.style}</p>
             <p><strong>Message:</strong> {formData.message}</p>
             <hr />
-            <p className="fw-bold">Estimated Cost: <span className="text-success">${totalCost}</span></p>
+            <p className="fw-bold">Estimated Cost: <span className="text-success">${featuresCost}</span></p>
+            {!selectedSubscription && fee > 0 && (
+              <>
+                <p className="fw-bold">Fee: <span className="text-primary">${fee}</span></p>
+                <hr />
+                <p className="fw-bold">Total Cost: <span className="text-success">${totalCost}</span></p>
+              </>
+            )}
+            {selectedSubscription && (
+              <>
+                <p className="fw-bold">Maintenance Fee: <span className="text-primary">${selectedSubscription.maintenanceFee}/month</span></p>
+                <p className="text-muted small">Includes domain renewal, software updates, server maintenance, and support.</p>
+                <hr />
+                <p className="fw-bold">Total Cost: <span className="text-success">${totalCost}</span></p>
+              </>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setShowSummary(false)}>

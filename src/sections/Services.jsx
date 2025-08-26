@@ -7,33 +7,33 @@ import './Services.scss';
 const servicesData = [
   {
     icon: <i className="fas fa-desktop"></i>,
-    title: 'Custom Websites',
-    text: 'Bespoke websites tailored to your brand and goals.'
+    title: 'Custom Websites Rwanda',
+    text: 'Bespoke websites tailored to your brand and goals, built right here in Rwanda.'
   },
   {
     icon: <i className="fas fa-shopping-cart"></i>,
-    title: 'E-Commerce',
-    text: 'Powerful online stores that drive sales and growth.'
+    title: 'E-Commerce Solutions',
+    text: 'Powerful online stores that drive sales and growth for businesses in Rwanda.'
   },
   {
     icon: <i className="fas fa-rocket"></i>,
-    title: 'Landing Pages',
-    text: 'High-converting pages for your marketing campaigns.'
+    title: 'Landing Pages & Campaigns',
+    text: 'High-converting pages for your marketing campaigns, optimized for the Rwandan market.'
   },
   {
     icon: <i className="fas fa-sync-alt"></i>,
-    title: 'Website Redesigns',
-    text: 'Modernize your online presence with a fresh new look.'
+    title: 'Website Redesigns & Modernization',
+    text: 'Modernize your online presence with a fresh new look, ensuring your site stands out in Rwanda.'
   },
   {
     icon: <i className="fas fa-search"></i>,
-    title: 'SEO Services',
-    text: 'Improve your ranking on search engines and get found.'
+    title: 'SEO Services Rwanda',
+    text: 'Improve your ranking on search engines and get found by customers across Rwanda.'
   },
   {
     icon: <i className="fas fa-server"></i>,
-    title: 'Hosting & Maintenance',
-    text: 'Reliable hosting and support to keep your site running.'
+    title: 'Hosting & Maintenance Rwanda',
+    text: 'Reliable hosting and support to keep your site running smoothly for your Rwandan audience.'
   }
 ];
 
@@ -41,7 +41,8 @@ const pricingData = {
   monthly: [
     {
       title: 'Subscription',
-      price: 29,
+      price: 39,
+      maintenanceFee: 23,
       features: [
         'Basic Website (Up to 3 pages)',
         'Responsive Design',
@@ -54,6 +55,7 @@ const pricingData = {
     {
       title: 'Business',
       price: 99,
+      maintenanceFee: 40,
       features: [
         'Up to 5 Pages',
         'Advanced SEO',
@@ -65,7 +67,8 @@ const pricingData = {
     },
     {
       title: 'Premium',
-      price: 199,
+      price: 150,
+      maintenanceFee: 70,
       features: [
         'Unlimited Pages',
         'Custom Features',
@@ -79,7 +82,8 @@ const pricingData = {
   yearly: [
     {
       title: 'Subscription',
-      price: 290,
+      price: 390,
+      maintenanceFee: 23,
       features: [
         'Basic Website (Up to 3 pages)',
         'Responsive Design',
@@ -91,7 +95,8 @@ const pricingData = {
     },
     {
       title: 'Business',
-      price: 999,
+      price: 990,
+      maintenanceFee: 40,
       features: [
         'Up to 5 Pages',
         'Advanced SEO',
@@ -103,7 +108,8 @@ const pricingData = {
     },
     {
       title: 'Premium',
-      price: 1999,
+      price: 1500,
+      maintenanceFee: 70,
       features: [
         'Unlimited Pages',
         'Custom Features',
@@ -133,7 +139,7 @@ const Services = () => {
         </div>
         <Row className="g-4 mb-5">
           {servicesData.map((service, index) => (
-            <Col md={6} lg={4} key={index}>
+            <Col md={6} lg={4} key={index} className="animate__animated animate__fadeInUp">
               <ServiceCard {...service} />
             </Col>
           ))}
@@ -154,7 +160,7 @@ const Services = () => {
         </div>
         <Row className="g-4 justify-content-center">
           {pricingData[billingCycle].map((tier, index) => (
-            <Col md={6} lg={4} key={index}>
+            <Col md={6} lg={4} key={index} className="animate__animated animate__fadeInUp">
               <PriceTier {...tier} billingCycle={billingCycle} />
             </Col>
           ))}

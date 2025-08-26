@@ -7,19 +7,19 @@ const blogPosts = [
     id: 1,
     title: '5 Things Every Business Website Needs',
     excerpt: 'Discover the essential elements that make a business website effective and drive conversions.',
-    link: '#'
+    link: 'https://3ddigital.com/5-things-every-business-website-needs/'
   },
   {
     id: 2,
     title: 'Why Mobile-Friendly Design Matters',
     excerpt: 'Learn why responsive design is crucial for your website\'s success in today\'s mobile-first world.',
-    link: '#'
+    link: 'https://www.theedigital.com/blog/why-mobile-design-matters'
   },
   {
     id: 3,
     title: 'The Power of SEO for Small Businesses',
     excerpt: 'Understand how Search Engine Optimization can help your small business get found online.',
-    link: '#'
+    link: 'https://aioseo.com/benefits-of-seo-for-small-businesses/'
   }
 ];
 

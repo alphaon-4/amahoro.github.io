@@ -4,47 +4,83 @@ import PortfolioItem from '../components/PortfolioItem';
 import TestimonialCard from '../components/TestimonialCard';
 import './Portfolio.scss';
 
-// Placeholder images - in a real app, these would be actual project screenshots
-import project1 from '../assets/project1.jpg';
-import project2 from '../assets/project2.jpg';
-import project3 from '../assets/project3.jpg';
+// Import custom images
+import ecommerceImage from '../assets/ecomerce.jpeg';
+import saasImage from '../assets/saas.jpg';
+import localbusinessImage from '../assets/localbusiness.jpg';
+import cooperateImage from '../assets/cooperate.jpg';
+import portfolioImage from '../assets/portofolio.jpg';
+import nonprofitImage from '../assets/nonprofit.jpg';
 
 const portfolioData = [
   {
-    image: project1,
+    image: ecommerceImage,
     title: 'E-commerce Store Redesign',
     description: 'Modernized an existing online store for a fashion brand, improving UX and conversion rates.',
-    link: '#'
+    category: 'E-commerce'
   },
   {
-    image: project2,
+    image: saasImage,
     title: 'SaaS Landing Page',
     description: 'Designed and developed a high-converting landing page for a new software-as-a-service product.',
-    link: '#'
+    category: 'SaaS'
   },
   {
-    image: project3,
+    image: localbusinessImage,
     title: 'Local Business Website',
     description: 'Created a responsive and SEO-friendly website for a local restaurant, boosting online reservations.',
-    link: '#'
+    category: 'Local Business'
+  },
+  {
+    image: cooperateImage,
+    title: 'Corporate Website',
+    description: 'Developed a professional website for a large corporation, with a focus on brand identity and clear communication.',
+    category: 'Corporate'
+  },
+  {
+    image: portfolioImage,
+    title: 'Portfolio Website',
+    description: 'Designed a stunning portfolio website for a creative professional to showcase their work.',
+    category: 'Portfolio'
+  },
+  {
+    image: nonprofitImage,
+    title: 'Non-profit Website',
+    description: 'Built a user-friendly website for a non-profit organization to increase donations and volunteer sign-ups.',
+    category: 'Non-profit'
   }
 ];
 
 const testimonialsData = [
   {
-    quote: 'Websprout delivered an outstanding website that perfectly captures our brand. Their attention to detail and responsiveness were exceptional!',
+    quote: 'Amahoro Tech Solutions delivered an outstanding website that perfectly captures our brand. Their attention to detail and responsiveness were exceptional!',
     author: 'Jane Doe',
     company: 'CEO, Creative Solutions'
   },
   {
-    quote: 'Our new e-commerce site built by Websprout has significantly increased our sales. The process was smooth and professional from start to finish.',
+    quote: 'Our new e-commerce site built by Amahoro Tech Solutions has significantly increased our sales. The process was smooth and professional from start to finish.',
     author: 'John Smith',
     company: 'Owner, Tech Gadgets Inc.'
   },
   {
-    quote: 'Highly recommend Websprout! They transformed our outdated website into a modern, mobile-friendly platform. Great communication throughout the project.',
+    quote: 'Highly recommend Amahoro Tech Solutions! They transformed our outdated website into a modern, mobile-friendly platform. Great communication throughout the project.',
     author: 'Emily White',
     company: 'Marketing Manager, Global Corp'
+  },
+  {
+    quote: 'The team at Amahoro Tech Solutions is incredibly talented. They took our vision and turned it into a reality that exceeded our expectations.',
+    author: 'Michael Brown',
+    company: 'Founder, StartupX'
+  },
+  {
+    quote: 'Working with Amahoro Tech Solutions was a pleasure. They are true professionals who are dedicated to their clients success.',
+    author: 'Sarah Green',
+    company: 'Director, Non-Profit Foundation'
+  },
+  {
+    quote: 'I was impressed by the quality of work and the speed of delivery. Amahoro Tech Solutions is the best web development company in Rwanda.',
+    author: 'David Kim',
+    company: 'Owner, Local Restaurant'
   }
 ];
 
@@ -53,9 +89,10 @@ const Portfolio = () => {
     <section id="portfolio" className="portfolio-section">
       <Container>
         <div className="text-center mb-5">
-          <h2 className="display-5 fw-bold">Our Recent Work</h2>
-          <p className="lead text-muted">Showcasing some of our best projects and client success stories.</p>
+          <h2 className="display-5 fw-bold">Our Portfolio</h2>
+          <p className="lead text-muted">A selection of our finest work, showcasing our expertise across various industries.</p>
         </div>
+
         <Row className="g-4 mb-5">
           {portfolioData.map((item, index) => (
             <Col md={6} lg={4} key={index}>

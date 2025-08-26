@@ -1,11 +1,12 @@
 .blog-section {
   padding: 6rem 0;
-  background-color: #ffffff; // White background for this section
+  background-color: var(--background-color-blog);
 
   .blog-post-card {
     border: none;
     border-radius: 10px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--secondary-background-dark);
 
     &:hover {
       transform: translateY(-5px);
@@ -13,7 +14,25 @@
     }
 
     .card-title {
-      color: #28a745; // Green color for titles
+      color: var(--primary-color-dark); // Green color for titles
+    }
+
+    .card-text {
+      color: var(--text-color-dark);
+    }
+  }
+}
+
+body[data-theme="light"] .blog-section {
+  .blog-post-card {
+    background-color: var(--secondary-background-light);
+
+    .card-title {
+      color: var(--primary-color-light);
+    }
+
+    .card-text {
+      color: var(--text-color-light);
     }
   }
 }
